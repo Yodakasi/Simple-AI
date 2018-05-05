@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 
+
 //constructor
 car::car(sf::RenderWindow &window, double a, double b, double c, double x_start, double y_start) {
   accelaration = a;
@@ -14,7 +15,7 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
   carSprite.setPosition(x, y);
   if(!texture.loadFromFile("../img/car.png")) {
     carSprite.setTextureRect(sf::IntRect(25, 12.5, 50, 25));
-    carSprite.setColor(sf::Color::White);
+    carSprite.setColor(sf::Color::Red);
   }
   else {
     carSprite.setTexture(texture);
@@ -31,6 +32,7 @@ void car::draw(sf::RenderWindow &window) {
 //calculate car speed
 void car::move(){
   //handle braking and reversing
+  //std::cout << x << " " << y << " " << tan(r * M_PI / 180.0) * x + y - tan(r * M_PI / 180.0) * x << std::endl;
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
   {
       if(actualSpeed > 0 ) actualSpeed -= brakes;
@@ -65,6 +67,39 @@ void car::move(){
   carSprite.setPosition(x, y);
 }
 
+void car::move(double turning, double engine){
+  //handle braking and reversing
+  //std::cout << x << " " << y << " " << tan(r * M_PI / 180.0) * x + y - tan(r * M_PI / 180.0) * x << std::endl;
+  if (engine < 0)
+  {
+      if(actualSpeed > 0 ) actualSpeed -= brakes;
+      if(actualSpeed > (-speed)/2) actualSpeed -= accelaration/3 * engine;
+  }
+  //handle accelarating
+  else if (engine > 0)
+  {
+      if(actualSpeed < speed) actualSpeed += accelaration * engine;
+  }
+  //make car slow down if no key is pressed
+  else
+  {
+      if(actualSpeed < 0.01 && actualSpeed > -0.01) actualSpeed = 0;
+      else if(actualSpeed > 0) actualSpeed -= accelaration/5;
+      else if(actualSpeed < 0) actualSpeed += accelaration/5;
+
+  }
+  //handle stering only if car is moving
+
+  r += turning * (actualSpeed);
+
+
+
+  //calculate car movement in x y axis
+  x += cos( r * M_PI / 180.0 ) * (actualSpeed);
+  y += sin( r * M_PI / 180.0 ) * (actualSpeed);
+  carSprite.setPosition(x, y);
+}
+
 sf::FloatRect car::getBounds() {
   return carSprite.getGlobalBounds();
 }
@@ -74,6 +109,20 @@ void car::carReset(double x_start, double y_start) {
   x = x_start;
   y = y_start;
   r = 0;
+  score = 0;
   actualSpeed = 0;
   carSprite.setPosition(x, y);
+}
+
+sf::Vector2f car::carPosition() {
+  return carSprite.getPosition();
+}
+
+float car::carRotation() {
+  return carSprite.getRotation();
+}
+
+int car::countScore() {
+  score += actualSpeed;
+  return score;
 }
