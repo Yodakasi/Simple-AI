@@ -3,6 +3,6 @@
 Compilation:
 run the makefile
 
-To run just open /lib/gierka
+To run just open /bin/gierka
 
 Game to run needs sfml libraries
