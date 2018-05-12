@@ -37,23 +37,11 @@ void network::getValues(std::vector<double> &values) {
   }
 }
 
-void network::backProp() {
-  for(unsigned i=1; i<layers.size(); i++) {
 
-    for(unsigned j=0; j<layers[i].size() - 1; j++) {
-
-      if(rand() % 2) {
-        layers[i][j].randweight(j);
-      }
-
-    }
-  }
-}
-
-void network::mixNets(std::vector<int> topology, std::vector<double> net) {
+void network::mixNets(std::vector<int> topology, std::vector<double> net, int share) {
   int netSize = net.size();
-  int startNeuron = rand() % (netSize - (netSize * 65)/100);
-  int stopNeuron = (netSize * 65)/100 + startNeuron;
+  int startNeuron = rand() % (netSize - (netSize * share)/100);
+  int stopNeuron = (netSize * share)/100 + startNeuron;
   int layersIterator = 0;
   int neuronsIterator = 0;
   int weightIterator = 0;
@@ -102,8 +90,9 @@ void network::mutateNet(std::vector<int> topology, int chance) {
   int layersIterator = 0;
   int neuronsIterator = 0;
   int weightIterator = 0;
-  while(layersIterator < topology.back()) {
-    if((1 + rand() % 100) <= chance) {
+  while(layersIterator < topology.size()-1) {
+    int elo = 1 + rand() % 100;
+    if((elo) <= chance) {
       layers[layersIterator][neuronsIterator].setWeight(weightIterator, -1 + rand() / double(RAND_MAX/2.0));
     }
     ++weightIterator;

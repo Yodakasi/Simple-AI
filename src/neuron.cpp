@@ -30,12 +30,6 @@ void neuron::feedForward(layer &prevLayer, int Myindex) {
   //std::cout << "elooutput " << outputVal << std::endl;
 }
 
-void neuron::randweight(int Myindex) {
-  //double tmp = weights[Myindex].weight;
-  weights[Myindex].weight = -1 + rand() / double(RAND_MAX/2.0);
-  //weights[Myindex].deltaWeight = tmp - weights[Myindex].weight;
-}
-
 std::vector<double> neuron::getWeight() {
   std::vector<double> weightTmp;
   for(unsigned i=0; i<weights.size(); i++) {

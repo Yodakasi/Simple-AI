@@ -13,13 +13,39 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
   r = 0;
   actualSpeed = 0;
   carSprite.setPosition(x, y);
-  if(!texture.loadFromFile("../img/car.png")) {
+  switch(rand() % 4) {
+    case 0:
+      if(texture.loadFromFile("../img/car.png")){
+        carSprite.setTexture(texture);
+        break;
+      }
+    case 1:
+      if(texture.loadFromFile("../img/car2.png")){
+        carSprite.setTexture(texture);
+        break;
+      }
+    case 2:
+      if(texture.loadFromFile("../img/car3.png")){
+        carSprite.setTexture(texture);
+        break;
+      }
+    case 3:
+      if(texture.loadFromFile("../img/car3.png")){
+        carSprite.setTexture(texture);
+        break;
+      }
+    default:
+      carSprite.setTextureRect(sf::IntRect(25, 12.5, 50, 25));
+      carSprite.setColor(sf::Color::Red);
+
+  }
+  /*if(!texture.loadFromFile("../img/car.png")) {
     carSprite.setTextureRect(sf::IntRect(25, 12.5, 50, 25));
     carSprite.setColor(sf::Color::Red);
   }
   else {
     carSprite.setTexture(texture);
-  }
+  }*/
   carSprite.setScale(window.getSize().x/1366.32, window.getSize().y/768.72);
   carSprite.setOrigin(carSprite.getLocalBounds().width/2, carSprite.getLocalBounds().height/2);
   beginTime = clock();

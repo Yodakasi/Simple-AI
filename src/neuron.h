@@ -23,7 +23,6 @@ public:
   void setOutputval(double val) {outputVal = val;}
   double getOutputval() {return outputVal;}
   void feedForward(layer &prevLayer, int Myindex);
-  void randweight(int Myindex);
   std::vector<double> getWeight();
   void setWeight(int index, double newWeight);
 };

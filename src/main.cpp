@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <ctime>
 #include <algorithm>
+#include <string>
 #include "car.h"
 #include "map.h"
 #include "collider.h"
@@ -10,9 +11,14 @@
 
 int main() {
   //initialization
-  sf::RenderWindow window(sf::VideoMode(1366, 768), "Gierka");
+  sf::RenderWindow window(sf::VideoMode(1280, 720), "Gierka");
   window.setFramerateLimit(60);
   srand(time(0));
+  int carsNumber = 15;
+  int bestScore = 0;
+  int generation = 1;
+  int progress = 0;
+  std::vector<double> bestNet;
   //original position
   double x = window.getSize().x/2.7;
   double y = window.getSize().y/1.2;
@@ -30,11 +36,30 @@ int main() {
   std::vector<network> net;
   std::vector<car> cars;
 
-  for(int i=0; i<5; i++) {
+  for(int i=0; i<carsNumber; i++) {
     cars.push_back(car(window, 0.15, 4, 0.35, x, y));
     net.push_back(topology);
 
   }
+
+  sf::Font font;
+  if (!font.loadFromFile("../font/DejaVuSans.ttf"))
+  {
+      std::cout << "Font error" << std::endl;
+  }
+  sf::Text textgen;
+  sf::Text textfit;
+  sf::Text textprog;
+
+  // select the font
+  textgen.setFont(font); // font is a sf::Font
+  textfit.setFont(font);
+  textprog.setFont(font);
+  textgen.setCharacterSize(12);
+  textfit.setCharacterSize(12);
+  textfit.setPosition(0, 15);
+  textprog.setCharacterSize(12);
+  textprog.setPosition(0, 30);
 
   //car car(window, 0.15, 4, 0.35, x, y);
 
@@ -64,13 +89,19 @@ int main() {
       window.clear();
       map.draw(window);
       sf::Image windowImage = window.capture();
-      for(int i=0; i<5; i++) {
+
+      textgen.setString("Generation: " + std::to_string(generation));
+      textfit.setString("Best fitness: " + std::to_string(bestScore));
+      for(int i=0; i<carsNumber; i++) {
       //check if collision occured
         if(cars[i].getcarstate()) {
           if(cars[i].checkCollision(cars[i].getBounds(), points_pointer, pointsNumber)) {
             cars[i].cardead();
           }
-          if(float( (clock() - cars[i].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[i].getActualSpeed() < 2) {
+          if(float( (clock() - cars[i].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[i].getActualSpeed() < 1) {
+            cars[i].cardead();
+          }
+          if(float( (clock() - cars[i].getCarTime() ) /  CLOCKS_PER_SEC) > 30) {
             cars[i].cardead();
           }
 
@@ -128,23 +159,52 @@ int main() {
               secondMaxIterator = i;
             }
           }
-          std::vector<double> bestNet;
-          net[maxIterator].mixNets(topology, net[secondMaxIterator].getNet());
           bestNet = net[maxIterator].getNet();
-          for(int i=0; i<5; i++) {
-            if(i == maxIterator) {
-              continue;
-            }
-            net[i].setNet(topology, bestNet);
-            net[i].mutateNet(topology, 5);
+          if(bestScore - max >= 0) {
+            progress++;
+            textprog.setString("No progress");
           }
+          else {
+            progress = 0;
+            textprog.setString("Progress");
+          }
+          if(progress < 4) {
+            if(bestScore < max){
+              bestScore = max;
+            }
+            if(secondMax == 0) secondMax++;
+            net[maxIterator].mixNets(topology, net[secondMaxIterator].getNet(), max/secondMax < 3 ? 55 + (max/secondMax) * 8 : 80);
+            std::cout << "share " << ((max/secondMax < 3) ? 55 + (max/secondMax) * 8 : 80) << std::endl;
+            bestNet = net[maxIterator].getNet();
+            for(int i=0; i<carsNumber; i++) {
+              if(i == maxIterator) {
+                continue;
+              }
+              net[i].setNet(topology, bestNet);
+              net[i].mutateNet(topology, 4);
+            }
+
+          }
+          else {
+            progress = 0;
+            assert(bestNet.size() > 0);
+            textprog.setString("Random mutations");
+            for(int i=0; i<carsNumber; i++) {
+              net[i].setNet(topology, bestNet);
+              net[i].mutateNet(topology, 30);
+            }
+
+          }
+          generation++;
           std::cout << max << " " << secondMax << std::endl;
           for(unsigned i=0; i<cars.size(); ++i) {
             cars[i].carReset(x, y);
           }
-
         }
       }
+      window.draw(textgen);
+      window.draw(textfit);
+      window.draw(textprog);
       window.display();
 
 
