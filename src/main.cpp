@@ -70,7 +70,7 @@ int main() {
           if(cars[i].checkCollision(cars[i].getBounds(), points_pointer, pointsNumber)) {
             cars[i].cardead();
           }
-          if(float( (clock() - cars[i].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[i].getActualSpeed() < 1) {
+          if(float( (clock() - cars[i].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[i].getActualSpeed() < 2) {
             cars[i].cardead();
           }
 
