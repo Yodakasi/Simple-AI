@@ -1,8 +1,10 @@
 #ifndef __CAR_H_INCLUDED__
 #define __CAR_H_INCLUDED__
 #include <SFML/Graphics.hpp>
+#include "collider.h"
+#include <ctime>
 
-class car {
+class car : public collider {
   sf::Sprite carSprite;
   sf::Texture texture;
   double accelaration;
@@ -13,6 +15,8 @@ class car {
   double r;
   double actualSpeed;
   int score = 0;
+  bool alive = true;
+  clock_t beginTime;
 public:
   car(sf::RenderWindow &window, double a, double b, double c, double x_start, double y_start);
   void draw(sf::RenderWindow &window);
@@ -22,7 +26,12 @@ public:
   sf::Vector2f carPosition();
   float carRotation();
   void carReset(double x_start, double y_start);
-  int countScore();
+  void countScore();
+  int getScore() {return score;}
+  double getActualSpeed() {return actualSpeed;}
+  clock_t getCarTime() {return beginTime;}
+  void cardead() {alive = false;}
+  bool getcarstate() {return alive;}
 };
 
 #endif

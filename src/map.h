@@ -10,7 +10,6 @@ class map {
 public:
   map(sf::RenderWindow &window);
   void draw(sf::RenderWindow &window);
-  bool check_collision(double car_x, double car_y);
   sf::Vector2f *getPoints(sf::Vector2f points[]);
   int countPoints();
 };

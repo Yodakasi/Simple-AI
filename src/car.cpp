@@ -22,6 +22,7 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
   }
   carSprite.setScale(window.getSize().x/1366.32, window.getSize().y/768.72);
   carSprite.setOrigin(carSprite.getLocalBounds().width/2, carSprite.getLocalBounds().height/2);
+  beginTime = clock();
 }
 //drawing the car on screen
 void car::draw(sf::RenderWindow &window) {
@@ -112,6 +113,8 @@ void car::carReset(double x_start, double y_start) {
   score = 0;
   actualSpeed = 0;
   carSprite.setPosition(x, y);
+  alive = true;
+  beginTime = clock();
 }
 
 sf::Vector2f car::carPosition() {
@@ -122,7 +125,6 @@ float car::carRotation() {
   return carSprite.getRotation();
 }
 
-int car::countScore() {
+void car::countScore() {
   score += actualSpeed;
-  return score;
 }
