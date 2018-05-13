@@ -19,6 +19,7 @@ class car : public collider {
   clock_t beginTime;
 public:
   car(sf::RenderWindow &window, double a, double b, double c, double x_start, double y_start);
+  ~car() {}
   void draw(sf::RenderWindow &window);
   void move();
   void move(double turning, double engine);

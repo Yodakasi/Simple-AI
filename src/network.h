@@ -9,6 +9,7 @@ class network {
   std::vector<layer> layers;
 public:
   network(std::vector<int> &topology);
+  ~network() {}
   void feedForward(std::vector<double> &input);
   void getValues(std::vector<double> &values);
   void mixNets(std::vector<int> topology, std::vector<double> net, int share);

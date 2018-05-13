@@ -1,7 +1,7 @@
-OBJS = src/main.cpp src/car.cpp src/map.cpp src/collider.cpp src/network.cpp src/neuron.cpp
+OBJS = src/main.cpp src/car.cpp src/map.cpp src/collider.cpp src/network.cpp src/neuron.cpp src/settings.cpp
 CC = g++
 COMPILER_FLAGS = -Wall -Wextra
-LINKER_FLAGS = -Llib -lsfml-graphics -lsfml-window -lsfml-system
+LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 OBJ_NAME = bin/gierka
 
 all: $(OBJS)

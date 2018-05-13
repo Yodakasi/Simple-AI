@@ -19,21 +19,25 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
         carSprite.setTexture(texture);
         break;
       }
+      [[fallthrough]];
     case 1:
       if(texture.loadFromFile("../img/car2.png")){
         carSprite.setTexture(texture);
         break;
       }
+      [[fallthrough]];
     case 2:
       if(texture.loadFromFile("../img/car3.png")){
         carSprite.setTexture(texture);
         break;
       }
+      [[fallthrough]];
     case 3:
       if(texture.loadFromFile("../img/car3.png")){
         carSprite.setTexture(texture);
         break;
       }
+      [[fallthrough]];
     default:
       carSprite.setTextureRect(sf::IntRect(25, 12.5, 50, 25));
       carSprite.setColor(sf::Color::Red);

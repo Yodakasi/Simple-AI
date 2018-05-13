@@ -87,7 +87,7 @@ void network::setNet(std::vector<int> topology, std::vector<double> net) {
 
 }
 void network::mutateNet(std::vector<int> topology, int chance) {
-  int layersIterator = 0;
+  unsigned layersIterator = 0;
   int neuronsIterator = 0;
   int weightIterator = 0;
   while(layersIterator < topology.size()-1) {
