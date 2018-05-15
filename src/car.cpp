@@ -43,13 +43,7 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
       carSprite.setColor(sf::Color::Red);
 
   }
-  /*if(!texture.loadFromFile("../img/car.png")) {
-    carSprite.setTextureRect(sf::IntRect(25, 12.5, 50, 25));
-    carSprite.setColor(sf::Color::Red);
-  }
-  else {
-    carSprite.setTexture(texture);
-  }*/
+
   carSprite.setScale(window.getSize().x/1366.32, window.getSize().y/768.72);
   carSprite.setOrigin(carSprite.getLocalBounds().width/2, carSprite.getLocalBounds().height/2);
   beginTime = clock();

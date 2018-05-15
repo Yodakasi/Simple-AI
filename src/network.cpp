@@ -5,11 +5,12 @@
 network::network(std::vector<int> &topology) {
   int numOfLayers = topology.size();
   for(int i=0; i<numOfLayers; i++) {
+    std::cout << "nufkalayer" << std::endl;
     layers.push_back(layer());
     int numOfOutputs = i == numOfLayers - 1 ? 0 : topology[i + 1];
     for(int j=0; j<=topology[i]; j++) {
       layers.back().push_back(neuron(numOfOutputs, j));
-      std::cout << "nufka sztuka" << std::endl;
+      std::cout << "nufka" << std::endl;
     }
     layers.back().back().setOutputval(1.0);
   }
