@@ -1,16 +1,13 @@
 #include "network.h"
-#include <iostream>
 
 
 network::network(std::vector<int> &topology) {
   int numOfLayers = topology.size();
   for(int i=0; i<numOfLayers; i++) {
-    std::cout << "nufkalayer" << std::endl;
     layers.push_back(layer());
     int numOfOutputs = i == numOfLayers - 1 ? 0 : topology[i + 1];
     for(int j=0; j<=topology[i]; j++) {
       layers.back().push_back(neuron(numOfOutputs, j));
-      std::cout << "nufka" << std::endl;
     }
     layers.back().back().setOutputval(1.0);
   }
@@ -21,7 +18,6 @@ void network::feedForward(std::vector<double> &input) {
   for(unsigned i=0; i<input.size(); i++) {
     layers[0][i].setOutputval(input[i]);
   }
-  //std::cout << "dupa " << layers[0][1].getOutputval();
 
 
   for(unsigned i=1; i<layers.size(); i++) {
@@ -46,7 +42,6 @@ void network::mixNets(std::vector<int> topology, std::vector<double> net, int sh
   int layersIterator = 0;
   int neuronsIterator = 0;
   int weightIterator = 0;
-  std::cout << "start " << startNeuron << " " << stopNeuron << std::endl;
   for(int i=0; i<netSize; i++) {
     if(i < startNeuron || i > stopNeuron) {
       layers[layersIterator][neuronsIterator].setWeight(weightIterator, net[i]);
@@ -61,8 +56,6 @@ void network::mixNets(std::vector<int> topology, std::vector<double> net, int sh
       ++layersIterator;
     }
   }
-  //layers[0][0].getWeight();
-  //rand() % 17
 
 }
 
@@ -83,8 +76,7 @@ void network::setNet(std::vector<int> topology, std::vector<double> net) {
       ++layersIterator;
     }
   }
-  //layers[0][0].getWeight();
-  //rand() % 17
+
 
 }
 void network::mutateNet(std::vector<int> topology, int chance) {

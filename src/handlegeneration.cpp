@@ -25,19 +25,16 @@ generation::generation(sf::Font &font) {
 }
 
 
-void generation::handleCars(sf::RenderWindow &window, std::vector<car> &cars, std::vector<network> &net, sf::Image &windowImage, sf::Vector2f points_pointer[], int carNumber, int pointsNumber) {
+void generation::handleCars(sf::RenderWindow &window, std::vector<car> &cars, std::vector<network> &net, sf::Image &windowImage, std::vector<sf::Vector2f> &mapPoints, int carNumber) {
   if(cars[carNumber].getcarstate()) {
-    if(cars[carNumber].checkCollision(cars[carNumber].getBounds(), points_pointer, pointsNumber)) {
+    if(cars[carNumber].checkCollision(cars[carNumber].getBounds(), mapPoints)) {
       cars[carNumber].cardead();
-      //showBestCar = false;
     }
     if(float( (clock() - cars[carNumber].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[carNumber].getActualSpeed() < 1) {
       cars[carNumber].cardead();
-      //showBestCar = false;
     }
     if(float( (clock() - cars[carNumber].getCarTime() ) /  CLOCKS_PER_SEC) > 30) {
       cars[carNumber].cardead();
-      //showBestCar = false;
     }
 
 
@@ -137,7 +134,6 @@ void generation::handleProgress(std::vector<car> &cars, std::vector<network> &ne
     }
   }
   generationNum++;
-  std::cout << max << " " << secondMax << std::endl;
   for(int i=0; i<carsNumber; ++i) {
     cars[i].carReset(x, y);
   }

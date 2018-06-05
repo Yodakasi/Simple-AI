@@ -10,7 +10,7 @@ class collider {
 public:
   collider() {point.resize(5);}
   ~collider() {}
-  bool checkCollision(sf::FloatRect car, sf::Vector2f points_pointer[], int pointsNumber);
+  bool checkCollision(sf::FloatRect car, std::vector<sf::Vector2f> mapPoints);
   void carline(sf::Image window, sf::Vector2f position, float rotation, int reach, int pointIndex);
   double getDistance(sf::Vector2f carPosition, int pointIndex);
   sf::CircleShape getPoint(int pointIndex) {return point[pointIndex];}

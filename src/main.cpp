@@ -12,7 +12,7 @@
 
 int main() {
   //initialization
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "Gierka");
+  sf::RenderWindow window(sf::VideoMode(960, 540), "Gierka", sf::Style::Titlebar | sf::Style::Close);
   window.setFramerateLimit(60);
   srand(time(0));
 
@@ -25,11 +25,10 @@ int main() {
   std::vector<int> topology;
   std::vector<network> net;
   std::vector<car> cars;
+  std::vector<sf::Vector2f> mapPoints;
   bool showBestCar = false;
-  map map(window);
+  map map;
   //original position
-  double x = window.getSize().x/2.7;
-  double y = window.getSize().y/1.2;
 
 
 
@@ -56,14 +55,16 @@ int main() {
   bestCarButton.setPosition(0, 30);
   returnButton.setPosition(120, 0);
 
-  int pointsNumber = map.countPoints();
-  sf::Vector2f points_pointer[pointsNumber];
-  map.getPoints(points_pointer);
+
 
   generation generation(font);
-  settings settings(carAccelaration, carBrakes, carMaxSpeed, carsNumber, 2, mutationChanceprog, mutationChancenoprog, x, y);
+  settings settings(carAccelaration, carBrakes, carMaxSpeed, carsNumber, 2, mutationChanceprog, mutationChancenoprog);
   settings.set(window, cars, net, topology, mutationChanceprog, mutationChancenoprog, carsNumber);
-
+  map.calcMap(window);
+  map.getPoints(mapPoints);
+  map.draw(window);
+  window.display();
+  sf::Image windowImage = window.capture();
   while (window.isOpen())
   {
       sf::Event event;
@@ -82,22 +83,26 @@ int main() {
             window.display();
           }
           settings.set(window, cars, net, topology, mutationChanceprog, mutationChancenoprog, carsNumber);
+          window.clear();
+          map.calcMap(window);
+          map.getPoints(mapPoints);
+          map.draw(window);
+          window.display();
+          windowImage = window.capture();
           generation.reset();
-
         }
         if(bestCarButton.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y) && !showBestCar) {
           showBestCar = true;
           net[carsNumber].setNet(topology, generation.getBestNet());
-          cars[carsNumber].carReset(x, y);
+          cars[carsNumber].carReset(window.getSize().x/2.7, window.getSize().y/1.2);
         }
       }
       window.clear();
       map.draw(window);
-      sf::Image windowImage = window.capture();
       if(showBestCar) {
         if(cars[carsNumber].getcarstate()) {
           window.draw(returnButton);
-          generation.handleCars(window, cars, net, windowImage, points_pointer, carsNumber, pointsNumber);
+          generation.handleCars(window, cars, net, windowImage, mapPoints, carsNumber);
           if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if(returnButton.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
               showBestCar = false;
@@ -110,14 +115,14 @@ int main() {
       }
       else {
         for(int i=0; i<carsNumber; i++) {
-          generation.handleCars(window, cars, net, windowImage, points_pointer, i, pointsNumber);
+          generation.handleCars(window, cars, net, windowImage, mapPoints, i);
         }
         for(int i=0; i<carsNumber; ++i) {
           if(cars[i].getcarstate()) {
             break;
           }
           if(i == carsNumber-1) {
-            generation.handleProgress(cars, net, topology, carsNumber, mutationChanceprog, mutationChancenoprog, x, y);
+            generation.handleProgress(cars, net, topology, carsNumber, mutationChanceprog, mutationChancenoprog, window.getSize().x/2.7, window.getSize().y/1.2);
           }
 
         }

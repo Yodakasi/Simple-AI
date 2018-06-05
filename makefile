@@ -1,5 +1,5 @@
 OBJS = src/main.cpp src/car.cpp src/map.cpp src/collider.cpp src/network.cpp src/neuron.cpp src/settings.cpp src/handlegeneration.cpp
-CC = g++
+CC = g++ -std=c++11
 COMPILER_FLAGS = -Wall -Wextra
 LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 OBJ_NAME = bin/gierka

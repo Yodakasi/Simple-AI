@@ -56,8 +56,6 @@ void car::draw(sf::RenderWindow &window) {
 }
 //calculate car speed
 void car::move(){
-  //handle braking and reversing
-  //std::cout << x << " " << y << " " << tan(r * M_PI / 180.0) * x + y - tan(r * M_PI / 180.0) * x << std::endl;
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
   {
       if(actualSpeed > 0 ) actualSpeed -= brakes;
@@ -93,8 +91,6 @@ void car::move(){
 }
 
 void car::move(double turning, double engine){
-  //handle braking and reversing
-  //std::cout << x << " " << y << " " << tan(r * M_PI / 180.0) * x + y - tan(r * M_PI / 180.0) * x << std::endl;
   if (engine < 0)
   {
       if(actualSpeed > 0 ) actualSpeed -= brakes;
@@ -114,11 +110,7 @@ void car::move(double turning, double engine){
 
   }
   //handle stering only if car is moving
-
   r += turning * (actualSpeed);
-
-
-
   //calculate car movement in x y axis
   x += cos( r * M_PI / 180.0 ) * (actualSpeed);
   y += sin( r * M_PI / 180.0 ) * (actualSpeed);

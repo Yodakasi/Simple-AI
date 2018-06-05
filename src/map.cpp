@@ -1,6 +1,5 @@
 #include "map.h"
-#include <cmath>
-#include <iostream>
+
 
 //caluculate points for inner and outer part of the track
 void calc_points(sf::RenderWindow &window, sf::VertexArray &map_varcicies, double a, double b) {
@@ -16,7 +15,9 @@ void calc_points(sf::RenderWindow &window, sf::VertexArray &map_varcicies, doubl
 }
 
 //constructor
-map::map(sf::RenderWindow &window) {
+void map::calcMap(sf::RenderWindow &window) {
+  map_inside.clear();
+  map_outside.clear();
   map_outside.setPrimitiveType(sf::TrianglesStrip);
   map_inside.setPrimitiveType(sf::TrianglesStrip);
   calc_points(window, map_outside, window.getSize().x/2.27, window.getSize().y/2.19);
@@ -29,18 +30,17 @@ void map::draw(sf::RenderWindow &window) {
 }
 
 //return points of the track for collider
-sf::Vector2f *map::getPoints(sf::Vector2f points[]) {
+void map::getPoints(std::vector<sf::Vector2f> &points) {
+  points.clear();
   int num = map_inside.getVertexCount();
   int i;
   for(i=0; i<num-1; i++) {
-    points[i] = sf::Vector2f(map_outside[i].position);
+    points.push_back(sf::Vector2f(map_outside[i].position));
   }
   num = map_outside.getVertexCount();
   for(int j=i, g=0; j<i+num-2; j++, g++) {
-    points[j] = sf::Vector2f(map_inside[g].position);
+    points.push_back(sf::Vector2f(map_inside[g].position));
   }
-
-  return points;
 }
 
 //count how many points there is for collider
