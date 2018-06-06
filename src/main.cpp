@@ -28,9 +28,6 @@ int main() {
   std::vector<sf::Vector2f> mapPoints;
   bool showBestCar = false;
   map map;
-  //original position
-
-
 
   sf::Font font;
   if (!font.loadFromFile("../font/DejaVuSans.ttf")) {
@@ -54,8 +51,6 @@ int main() {
   }
   bestCarButton.setPosition(0, 30);
   returnButton.setPosition(120, 0);
-
-
 
   generation generation(font);
   settings settings(carAccelaration, carBrakes, carMaxSpeed, carsNumber, 2, mutationChanceprog, mutationChancenoprog);

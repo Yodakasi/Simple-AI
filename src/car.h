@@ -16,7 +16,7 @@ class car : public collider {
   double actualSpeed;
   int score = 0;
   bool alive = true;
-  clock_t beginTime;
+  std::time_t beginTime;
 public:
   car(sf::RenderWindow &window, double a, double b, double c, double x_start, double y_start);
   ~car() {}
@@ -30,7 +30,7 @@ public:
   void countScore();
   int getScore() {return score;}
   double getActualSpeed() {return actualSpeed;}
-  clock_t getCarTime() {return beginTime;}
+  std::time_t getCarTime() {return beginTime;}
   void cardead() {alive = false;}
   bool getcarstate() {return alive;}
 };

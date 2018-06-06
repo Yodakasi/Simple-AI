@@ -43,10 +43,9 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
       carSprite.setColor(sf::Color::Red);
 
   }
-
+  beginTime = std::time(nullptr);
   carSprite.setScale(window.getSize().x/1366.32, window.getSize().y/768.72);
   carSprite.setOrigin(carSprite.getLocalBounds().width/2, carSprite.getLocalBounds().height/2);
-  beginTime = clock();
 }
 //drawing the car on screen
 void car::draw(sf::RenderWindow &window) {
@@ -130,7 +129,7 @@ void car::carReset(double x_start, double y_start) {
   actualSpeed = 0;
   carSprite.setPosition(x, y);
   alive = true;
-  beginTime = clock();
+  beginTime = std::time(nullptr);
 }
 
 sf::Vector2f car::carPosition() {

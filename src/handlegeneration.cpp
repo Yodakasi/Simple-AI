@@ -30,13 +30,12 @@ void generation::handleCars(sf::RenderWindow &window, std::vector<car> &cars, st
     if(cars[carNumber].checkCollision(cars[carNumber].getBounds(), mapPoints)) {
       cars[carNumber].cardead();
     }
-    if(float( (clock() - cars[carNumber].getCarTime() ) /  CLOCKS_PER_SEC) > 5 && cars[carNumber].getActualSpeed() < 1) {
+    if((std::time(nullptr) - cars[carNumber].getCarTime()) > 5 && cars[carNumber].getActualSpeed() < 1) {
       cars[carNumber].cardead();
     }
-    if(float( (clock() - cars[carNumber].getCarTime() ) /  CLOCKS_PER_SEC) > 30) {
+    if((std::time(nullptr) - cars[carNumber].getCarTime()) > 20) {
       cars[carNumber].cardead();
     }
-
 
     cars[carNumber].carline(windowImage, cars[carNumber].carPosition(), cars[carNumber].carRotation(), 40, 0);
     cars[carNumber].carline(windowImage, cars[carNumber].carPosition(), cars[carNumber].carRotation() <= 300 ? cars[carNumber].carRotation() + 60 : cars[carNumber].carRotation() - 300, 35, 1);
