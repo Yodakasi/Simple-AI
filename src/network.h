@@ -6,7 +6,7 @@
 
 
 class network {
-  std::vector<layer> layers;
+  std::vector<layer> layers; /*! Vektor dwuwymiarowy przechowujący neurony */
 public:
   network(std::vector<int> &topology);
   ~network() {}

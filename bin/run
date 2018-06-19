@@ -1,2 +1,2 @@
 #!/bin/bash
-export LD_LIBRARY_PATH=bin && ./gierka
+export LD_LIBRARY_PATH=/home/yodak/Documents/Projektpp2/simple-ai/bin/lib && ./gierka

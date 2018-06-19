@@ -6,12 +6,12 @@
 #include <string>
 
 class generation {
-  std::vector<double> output;
-  std::vector<double> input;
-  std::vector<double> bestNet;
-  int progress;
-  int generationNum;
-  int bestScore;
+  std::vector<double> output; /*!< Vektor z wartościami otrzymanymi z sieci neronowej */
+  std::vector<double> input; /*!< Vektor z wartościami do przekazania sieci neuronowej */
+  std::vector<double> bestNet; /*!< Vektor z najlepszymi sieciami */
+  int progress; /*!< Zmienna pilnująca czy nastąpił postęp */
+  int generationNum; /*!< Licznik generacji */
+  int bestScore; /*!< Aktualny najlepszy wynik */
   sf::Text textgen;
   sf::Text textfit;
   sf::Text textprog;
@@ -22,6 +22,9 @@ public:
   void handleProgress(std::vector<car> &cars, std::vector<network> &net, std::vector<int> &topology, int carsNumber, int mutationChanceprog, int mutationChancenoprog, double x, double y);
   void drawGensInfo(sf::RenderWindow &window);
   void reset();
+  /*!
+  * \brief Metoda zwracająca aktualnie najlepszą sieć
+  */
   std::vector<double> getBestNet() {return bestNet;}
 };
 

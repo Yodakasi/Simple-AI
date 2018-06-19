@@ -1,5 +1,16 @@
 #include "settings.h"
 
+/*! 
+* \brief Konstruktor
+* \param carAccelaration Inicjująca wartość dla przyspieszenia samochodu
+* \param carBrakes Inicjująca wartość dla siły hamowania
+* \param carMaxspeed Inicjująca wartość dla maksymalnej prędkości
+* \param carsNumber Inicjująca wartość dla liczby samochodów na mapie
+* \param topologyHiddenLayers Inicjująca ilość ukrytych warstw w sieci neuronowej
+* \param mutationChanceprog Inicjująca wartość dla szansy na mutację gdy zaszedł postęp
+* \param mutationChancenoprog Inicjująca wartość dla szansy na mutację gdy nie zaszedł postęp
+* \details W konstruktorze przypisywane są wartości inicjujące obiekt
+*/
 settings::settings(double carAccelaration, double carBrakes, double carMaxspeed, int carsNumber, int topologyHiddenLayers, int mutationChanceprog, int mutationChancenoprog) {
   this->carAccelaration = carAccelaration;
   this->carBrakes = carBrakes;
@@ -14,6 +25,17 @@ settings::settings(double carAccelaration, double carBrakes, double carMaxspeed,
   neuronsNumber.push_back(1);
 }
 
+/*!
+* \brief Metoda zmieniająca ustawienia 
+* \param window Referencja do okna 
+* \param cars Referencja na vektor przechowujący obiekty samochodów
+* \param net Referencja na vektor przechowujący obiekty sieci neronowych
+* \param topology Wygląd sieci (ilość neronów w każdej warstwie)
+* \param mutationChanceprog wartość szansy na mutacje sieci gdy zaszedł postęp
+* \param mutationChancenoprog wartość szansy na mutacje sieci gdy nie zaszedł postęp
+* \param carsNumber Referencja na zmienną przechowującą liczbę samochodów
+* \details Metoda jest wywoływana po każdym wyjściu z ekranu opcji, tworzy ona obiekty samochodów, sieci z nowymi opcjami wybranymi przez użytkownika
+*/
 void settings::set(sf::RenderWindow &window, std::vector<car> &cars, std::vector<network> &net, std::vector<int> &topology, int &mutationChanceprog, int &mutationChancenoprog, int &carsNumber) {
   carsNumber = this->carsNumber;
   cars.clear();
@@ -33,7 +55,13 @@ void settings::set(sf::RenderWindow &window, std::vector<car> &cars, std::vector
   mutationChancenoprog = this->mutationChancenoprog;
 }
 
-
+/*!
+* \brief Metoda zmieniająca ustawienia 
+* \param window Referencja do okna 
+* \param font Referencja na aktualnie wczytaną czcionkę
+* \param event Referencja na obiekt zdarzeń biblioteki sfml używana do obsługi opuszczenia programu z tego ekranu
+* \details Metoda rysuje na ekranie ekran opcji
+*/
 bool settings::draw(sf::RenderWindow &window, sf::Font &font, sf::Event &event) {
   sf::Texture textureReturn;
   sf::Sprite returnButton;

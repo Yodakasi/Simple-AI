@@ -8,15 +8,10 @@ class neuron;
 
 typedef std::vector<neuron> layer;
 
-struct connection {
-  double weight;
-  double deltaWeight;
-};
-
 class neuron {
   static double transferFun(double x);
   double outputVal;
-  std::vector<connection> weights;
+  std::vector<double> weights;
   int index;
 public:
   neuron(int numOfOutputs, int index);

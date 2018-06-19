@@ -3,7 +3,17 @@
 #include <iostream>
 
 
-//constructor
+/*!
+* \brief Konstruktor 
+* \param window Referencja do okna 
+* \param a Przyspieszenie samochodu 
+* \param b Maksymalan prędkość samochodu 
+* \param c Siła hamowania samochodu
+* \param x_start Pozycja startowa samochodu na osi x
+* \param y_start Pozycja startowa samochodu na osi y
+* \details Ustala startową pozycje samochodu, jego maksymalną prędkość, przyspieszenie, siłe 
+* hamowania i losowa przypisuje mu teksture 
+*/
 car::car(sf::RenderWindow &window, double a, double b, double c, double x_start, double y_start) {
   accelaration = a;
   speed = b;
@@ -43,17 +53,26 @@ car::car(sf::RenderWindow &window, double a, double b, double c, double x_start,
       carSprite.setColor(sf::Color::Red);
 
   }
-  beginTime = std::time(nullptr);
+  beginTime = std::time(NULL);
   carSprite.setScale(window.getSize().x/1366.32, window.getSize().y/768.72);
   carSprite.setOrigin(carSprite.getLocalBounds().width/2, carSprite.getLocalBounds().height/2);
 }
-//drawing the car on screen
+
+/*!
+* \brief Metoda rysująca samochód w oknie
+* \param window Referencja do okna
+*/
 void car::draw(sf::RenderWindow &window) {
   carSprite.setTexture(texture);
   carSprite.setRotation(r);
   window.draw(carSprite);
 }
-//calculate car speed
+
+/*!
+* \brief Metoda zajmująca poruszaniem się samochodu 
+* \details Nie używana w aktualnej wersji przeznaczona tylko do testów
+*/
+[[deprecated("Don't use with neuron network, will alter with progress")]]
 void car::move(){
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
   {
@@ -89,6 +108,11 @@ void car::move(){
   carSprite.setPosition(x, y);
 }
 
+/*!
+* \brief Metoda zajmująca poruszniem się samochów przez sieć neuronową
+* \param turning Zminenna przechowująca wartości od -1 do 1 wyznacza kierunek (lewo, prawo) oraz siłe skrętu
+* \param engine Zminenna przechowująca wartości od -1 do 1 wynacza kierunek (przód, tył) oraz prędkość jazdy
+*/
 void car::move(double turning, double engine){
   if (engine < 0)
   {
@@ -116,11 +140,19 @@ void car::move(double turning, double engine){
   carSprite.setPosition(x, y);
 }
 
+/*!
+* \brief Metoda zwracająca granice samochodu
+* \details Potrzebna do liczenia kolizji samochodu z punktami mapy
+*/
 sf::FloatRect car::getBounds() {
   return carSprite.getGlobalBounds();
 }
 
-//method for reseting car if collision occured
+/*!
+* \brief Metoda resetująca samochód jeśli nastąpiła kolizja
+* \param x_start Nowa pozycja samochodu na osi x
+* \param y_start Nowa pozycja samochodu na osi y
+*/
 void car::carReset(double x_start, double y_start) {
   x = x_start;
   y = y_start;
@@ -136,10 +168,16 @@ sf::Vector2f car::carPosition() {
   return carSprite.getPosition();
 }
 
+/*!
+* \brief Metoda zwracająca aktualny kąt samochodu względem osi x
+*/
 float car::carRotation() {
   return carSprite.getRotation();
 }
 
+/*!
+* \brief Metoda licząca punkty samochodu
+*/
 void car::countScore() {
   score += actualSpeed;
 }

@@ -1,5 +1,6 @@
 #include "collider.h"
 
+
 bool collider::checkCollision(sf::FloatRect car, std::vector<sf::Vector2f> mapPoints) {
   for(int i=0; i<mapPoints.size(); i++) {
     if(car.contains(mapPoints[i].x, mapPoints[i].y)) {

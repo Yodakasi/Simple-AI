@@ -1,3 +1,15 @@
+/*!
+* \authors Arkadiusz Bazak, Karol Wójcik
+* \version 1.0 Compiled and tested on Linux system
+* \date 18-06-2018
+* \copyright GNU Public License
+* \mainpage Simple artificial intelligence
+* \section Kompilacja
+* Do skompilowania i uruchomienia są potrzebne biblioteki sfml, można je zainstastalować poleceniem
+* sudo apt-get install libsfml-dev
+* potem uruchomić z głównego katalogu gry polecenie "make" i uruchomić polik binarny "gierka"
+* który znajduje się w katalogu "bin".
+*/
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
