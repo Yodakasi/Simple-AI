@@ -73,8 +73,8 @@ bool settings::draw(sf::RenderWindow &window, sf::Font &font, sf::Event &event) 
   std::vector<sf::Text> value(12);
   resolution.x = window.getSize().x;
   resolution.y = window.getSize().y;
-  int ResolutionXArray[] = {768, 800, 848, 960, 1024, 1280, 1600};
-  int ResolutionYArray[] = {432, 450, 480, 540, 576, 720, 900};
+  int ResolutionXArray[] = {960, 1024, 1280, 1600};
+  int ResolutionYArray[] = {540, 576, 720, 900};
   int resolutionIndex = std::distance(ResolutionXArray, std::find(ResolutionXArray, ResolutionXArray + 7, resolution.x));
 
   for(int i=0; i<description.size(); i++) {
