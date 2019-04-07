@@ -18,6 +18,8 @@ Neural network is trained by genetic algorithm which takes two best cars for the
 
 ### Settings
 
+The evolution is restarted to generation 1 every time settings are accessed
+
 ![settings](readme_img/settings.png)
 
 #### Car acceralation
@@ -43,3 +45,8 @@ Number of hidden layers in a network (1 - 4)
 
 #### Number of neurons in n-th layer
 Number of neurons for the layer
+
+### Best car
+Best car option shows the current best neural network and resumes evolution.
+
+![best car](readme_img/bestcar.gif)
